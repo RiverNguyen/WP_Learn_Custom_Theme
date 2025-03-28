@@ -96,7 +96,7 @@ function jang_theme_option() {
 add_action("init", "jang_theme_option");
 
 // Tao danh muc services
-if(!function_exists('jang-option')) {
+if(!function_exists('jang_option')) {
   function jang_option($option = '', $default = null) {
     $option = get_option("jang_cs_options"); // Dat ID la duy nhat
     return (isset($option[$option])) ? $option[$option] : $default;
@@ -104,15 +104,14 @@ if(!function_exists('jang-option')) {
 }
 
 class Jang_Services {
-  // Build Construct Funtion
+  // Build Construct Function
   // @return__void
   function __construct() {
-    add_action("init", array(__CLASS__, "jang_services_init"));
-    add_filter('single_template', array($this, 'portfolio_single_template'));
+    add_action("init", array(__CLASS__, "jang_Services_init"));
+    add_filter('single_template', array($this, 'portfolio_single'));
   }
-}
 
-public static function jang_Service_init() {
+public static function jang_Services_init() {
   if(function_exists('jang_option')) {
     $slug_text = jang_option("Services_slug");
   }
@@ -124,7 +123,120 @@ public static function jang_Service_init() {
     'show_in_menu' => true,
     'query_var' => true,
     'rewrite' => array('slug' => $slug),
+    'capability_type' => 'post',
+    'has_archive' => false,
+    'hierarchical' => false,
+    'show_in_rest' => true, // REST API
+    'menu_position' => 20,
+    'menu_icon' => 'dashicons-images-alt2',
+    'supports' => array('title', 'editor', 'thumbnail', 'comments', 'elementor'),
+    'labels' => array(
+      'name' => _x("Dịch vụ", "jang"),
+      'singular_name' => _x("Dịch vụ", "jang"),
+      'menu_name' => _x("Dịch vụ", "jang"),
+      'name_admin_bar' => _x("Dịch vụ", "jang"),
+      'add_new' => _x("Thêm mới", "jang"),
+      'add_new_item' => __("Thêm mới dịch vụ", "jang"),
+      'edit_item' => __("Sửa", "jang"),
+      'view_item' => __("Xem", "jang"),
+      'all_items' => __("Tất cả dịch vụ", "jang"),
+      'search_items' => __("Tìm kiếm dịch vụ", "jang"),
+      'parent_item_colon' => __("Dịch vụ liên quan:", "jang"),
+      'not_found' => __("Không tìm thấy dịch vụ.", "jang"),
+      'not_found_in_trash' => __("Không tìm thấy dịch vụ nào bị xóa.", "jang")
+    ),
+  ));
+
+  // Dang ky services category
+  register_taxonomy("services_cat", array('services'), array(
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_rest' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array('slug' => trailingslashit('services_cat')),
+    'labels' => array(
+      'name' => _x("Danh mục", "jang"),
+      'singular_name' => _x("Danh mục", "jang"),
+      'search_items' => __("Tìm kiếm danh mục", "jang"),
+      'all_items' => __("Tất cả danh mục", "jang"),
+      'parent_item' => __('Danh mục liên quan', 'jang'),
+      'parent_item_colon' => __('Danh mục liên quan:', 'jang'),
+      'edit_item' => __('Sửa danh mục', 'jang'),
+      'update_item' => __('Cập nhật danh mục', 'jang'),
+      'add_new_item' => __('Thêm mới danh mục', 'jang'),
+      'new_item_name' => __('Tên danh mục mới', 'jang'),
+      'menu_name' => __('Danh mục', 'jang')
+    )
+  ));
+
+  // Register services tag
+  register_taxonomy("services_tag", array('services'), array(
+    'hierarchical' => false,
+    'show_ui' => true,
+    'show_in_rest' => true,
+    'show_admin_column' => true,
+    'update_count_callback' => '_update_post_term_count',
+    'query_var' => true,
+    'rewrite' => array('slug' => 'jang_Services_tag'),
+    'labels' => array(
+      'name' => _x("Tags", "jang"),
+      'singular_name' => _x("Tags", "jang"),
+      'search_items' => __("Tìm kiếm tags", "jang"),
+      'all_items' => __("Tất cả tags", "jang"),
+      'parent_item' => null,
+      'parent_item_colon' => null,
+      'edit_item' => __('Sửa tags', 'jang'),
+      'update_item' => __('Cập nhật tags', 'jang'),
+      'add_new_item' => __('Thêm mới tags', 'jang'),
+      'new_item_name' => __('Tên tags mới', 'jang'),
+      'separate_items_with_commas' => __('Separate tag with commas', 'jang'),
+      'add_or_remove_items' => __('Thêm hoặc xóa tag', 'jang'),
+      'choose_from_most_used' => __('Chọn từ tags phổ biến nhất', 'jang'),
+      'not_found' => __('Không tìm thấy tags.', 'jang'),
+      'menu_name' => __('Tags', 'jang')
+    )
   ));
 }
 
+function portfolio_single($template) {
+  global $post;
+  if($post->post_type == 'jang_Services') {
+    $template = JANG_THEME_DIR . '/services/single.php';
+  }
+  return $template;
+}
+
+public static function related() {
+  global $post;
+  // Get the good menu tags.
+  $cats = get_the_terms($post, 'jang_Services_cat');
+
+  if($cats) {
+    $cat_ids = array();
+
+    foreach ($cats as $cat) {
+      $cat_ids[] = $cat->term_id;
+    }
+
+    $post_perpage = jang_option('relpost_count') ? jang_option('relpost_count') : (int) '3';
+    $args = array(
+      'post_type' => 'jang_Services',
+      'post__not_in' => array($post->ID),
+      'posts_per_page' => 3,
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'jang_services_cat',
+          'field' => 'id',
+          'terms' => $cat_ids
+        )
+      )
+    );
+    $the_query = new WP_Query($args);
+
+    }
+    wp_reset_postdata();
+  }
+}
+$portfolio = new Jang_Services();
 ?>
