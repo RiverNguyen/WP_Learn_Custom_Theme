@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+ <?= get_header() ?>
 
-<head>
-  <meta charset="utf-8">
-  <title>SEO Master - SEO Agency Website Template</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
-
-  <!-- Favicon -->
-  <link href="img/favicon.ico" rel="icon">
-  <?= get_header() ?>
-</head>
-
-<body>
 <div class="container-xxl bg-white p-0">
   <!-- Spinner Start -->
   <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
