@@ -64,7 +64,7 @@
                             <div class="dropdown-menu m-0">
                                 <a href="templates/team.php" class="dropdown-item">Our Team</a>
                                 <a href="templates/testimonial.php" class="dropdown-item">Testimonial</a>
-                                <a href="404.php" class="dropdown-item">404 Page</a>
+                                <a href="1.php" class="dropdown-item">404 Page</a>
                             </div>
                         </div>
                         <a href="contact.php" class="nav-item nav-link">Contact</a>

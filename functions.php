@@ -309,4 +309,24 @@ function jang_footer_menu() {
   </div>
     <?php
 }
+
+// Pagination
+function jang_pagination($recent_posts) {
+  if ($recent_posts->max_num_pages <= 1) return; // Nếu chỉ có 1 trang, không hiển thị phân trang
+
+  $big = 999999999; // Giá trị lớn để thay thế trong URL
+  $current_page = max(1, get_query_var('paged'));
+
+  echo '<div class="pagination">';
+  echo paginate_links(array(
+    'base'      => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+    'format'    => '?paged=%#%', // Format chuẩn
+    'total'     => $recent_posts->max_num_pages, // Sử dụng max_num_pages của WP_Query
+    'current'   => $current_page,
+    'prev_text' => __('« Trước', 'jang'),
+    'next_text' => __('Sau »', 'jang'),
+  ));
+  echo '</div>';
+}
+
 ?>

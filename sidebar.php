@@ -1,1 +1,1 @@
-<?php
+this is sidebar

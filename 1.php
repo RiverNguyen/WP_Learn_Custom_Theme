@@ -60,14 +60,14 @@
                         <a href="templates/services.php" class="nav-item nav-link">Service</a>
                         <a href="templates/project.php" class="nav-item nav-link">Project</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0">
                                 <a href="templates/team.php" class="dropdown-item">Our Team</a>
                                 <a href="templates/testimonial.php" class="dropdown-item">Testimonial</a>
-                                <a href="1.php" class="dropdown-item">404 Page</a>
+                                <a href="404.html" class="dropdown-item active">404 Page</a>
                             </div>
                         </div>
-                        <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                        <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>
                     <butaton type="button" class="btn text-secondary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></butaton>
                     <a href="https://htmlcodex.com/startup-company-website-template" class="btn btn-secondary text-light rounded-pill py-2 px-4 ms-3">Pro Version</a>
@@ -78,13 +78,13 @@
                 <div class="container my-5 py-5 px-lg-5">
                     <div class="row g-5 py-5">
                         <div class="col-12 text-center">
-                            <h1 class="text-white animated zoomIn">Contact Us</h1>
+                            <h1 class="text-white animated zoomIn">Not Found</h1>
                             <hr class="bg-white mx-auto mt-0" style="width: 90px;">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-center">
                                     <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
                                     <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                                    <li class="breadcrumb-item text-white active" aria-current="page">Contact</li>
+                                    <li class="breadcrumb-item text-white active" aria-current="page">404</li>
                                 </ol>
                             </nav>
                         </div>
@@ -114,53 +114,21 @@
         <!-- Full Screen Search End -->
 
 
-        <!-- Contact Start -->
-        <div class="container-xxl py-5">
-            <div class="container px-lg-5">
+        <!-- 404 Start -->
+        <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container px-lg-5 text-center">
                 <div class="row justify-content-center">
-                    <div class="col-lg-7">
-                        <div class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp" data-wow-delay="0.1s">
-                            <h6 class="position-relative d-inline text-primary ps-4">Contact Us</h6>
-                            <h2 class="mt-2">Contact For Any Query</h2>
-                        </div>
-                        <div class="wow fadeInUp" data-wow-delay="0.3s">
-                            <form>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                            <label for="name">Your Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                            <label for="email">Your Email</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                            <label for="subject">Subject</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
-                                            <label for="message">Message</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                    <div class="col-lg-6">
+                        <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
+                        <h1 class="display-1">404</h1>
+                        <h1 class="mb-4">Page Not Found</h1>
+                        <p class="mb-4">We’re sorry, the page you have looked for does not exist in our website! Maybe go to our home page or try to use a search?</p>
+                        <a class="btn btn-primary rounded-pill py-3 px-5" href="">Go Back To Home</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Contact End -->
+        <!-- 404 End -->
         
 
         <!-- Footer Start -->
