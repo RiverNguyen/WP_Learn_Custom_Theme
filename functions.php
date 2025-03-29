@@ -271,4 +271,42 @@ function jang_nav_menu() {
   <?php
 }
 
+function register_my_menus() {
+  register_nav_menus(array(
+    'footer-menu-1' => __('Footer Menu 1'),
+  ));
+}
+add_action('after_setup_theme', 'register_my_menus');
+
+class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
+  function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+    $classes = !empty($item->classes) ? implode(' ', $item->classes) : '';
+    $output .= '<li class="' . esc_attr($classes) . '">';
+
+    $attributes = !empty($item->url) ? ' href="' . esc_attr($item->url) . '"' : '';
+
+    // Thêm class tùy chỉnh vào thẻ <a>
+    $output .= '<a class="btn btn-link" ' . $attributes . '>';
+    $output .= apply_filters('the_title', $item->title, $item->ID);
+    $output .= '</a>';
+  }
+}
+
+function jang_footer_menu() {
+  $menu_args = array(
+    'theme_location' => 'footer-menu-1',
+    'container' => '',
+//    'menu_class' => 'col-md-6 col-lg-3',
+    'fallback_cb' => false,
+    'walker' => new Custom_Walker_Nav_Menu()
+  );
+  ?>
+  <div class="col-md-6 col-lg-3">
+    <h5 class="text-white mb-4">Popular Link</h5>
+<?php
+  wp_nav_menu($menu_args);
+ ?>
+  </div>
+    <?php
+}
 ?>

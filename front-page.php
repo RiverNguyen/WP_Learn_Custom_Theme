@@ -1,4 +1,4 @@
- <?= get_header() ?>
+<?= get_header() ?>
 
 <div class="container-xxl bg-white p-0">
   <!-- Spinner Start -->
@@ -397,4 +397,4 @@
   <!-- Team End -->
 
 
-<?= get_footer() ?>
+  <?= get_footer() ?>
